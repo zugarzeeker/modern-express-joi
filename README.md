@@ -76,6 +76,8 @@ app.post('/users', (req, res) => {
   if (errors) res.status(400).send(errors)
   else res.status(200).send({ message: 'Success' })
 })
+
+app.listen(8080)
 ```
 
 ### Passed
@@ -99,7 +101,9 @@ app.post('/users', (req, res) => {
 }
 
 // Response 400
-{ }
+[
+  /*__errors__*/
+]
 ```
 
 ## Example Error Formatter
@@ -128,4 +132,32 @@ app.post('/users', (req, res) => {
   if (errors) res.status(400).send(errors)
   else res.status(200).send({ message: 'Success' })
 })
+
+app.listen(8080)
+```
+
+## Example Deep Checking Field
+```js
+// examples/deep-checking.js
+import Joi from Joi
+import express from 'express'
+const app = express()
+
+const schemaTemplates = {
+  templateName: Joi.string().required(),
+  templateAge: Joi.number().positive().optional()
+}
+
+app.use(modernValidator(schemaTemplates)
+app.post('/users', (req, res) => {
+  req.checkBody('templateName', 'name')
+  req.checkBody('templateAge', 'age')
+  req.sanitizeBody('templateName', 'name')
+  req.sanitizeBody('templateAge', 'age')
+  const errors = req.validationErrors()
+  if (errors) res.status(400).send(errors)
+  else res.status(200).send({ message: 'Success' })
+})
+
+app.listen(8080)
 ```
