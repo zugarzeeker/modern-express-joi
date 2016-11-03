@@ -6,7 +6,7 @@ An express.js middleware makes a powerful validation request with the Joi valida
 
 ## Usage
 - `npm install modern-express-joi`
-- `import { modernValidator } from 'modern-express-joi'`
+- `import modernValidator from 'modern-express-joi'`
 - make an `express` middleware from passing schemas to `modernValidator`
 - add middleware to express
 - call `req.checkAny` for validating
@@ -56,11 +56,14 @@ Getting your result of validation after you called `req.checkAny`. It returns `f
 
 ```js
 // examples/simple-validation.js
-import Joi from Joi
+import modernValidator from 'modern-express-joi'
+import Joi from 'joi'
 import express from 'express'
+import bodyParser = from 'body-parser'
 const app = express()
+app.use(bodyParser.json())
 
-const template = Joi.object.keys({
+const template = Joi.object().keys({
   name: Joi.string().required(),
   age: Joi.number().positive().optional()
 })
@@ -74,10 +77,12 @@ app.post('/users', (req, res) => {
   req.sanitizeBody('template')
   const errors = req.validationErrors()
   if (errors) res.status(400).send(errors)
-  else res.status(200).send({ message: 'Success' })
+  else res.status(200).send({ message: 'Success', body: req.body, x: '5' })
 })
 
 app.listen(8080)
+console.log('Running at port 8080');
+
 ```
 
 ### Passed
@@ -96,8 +101,7 @@ app.listen(8080)
 ```json
 // Request
 {
-  "name": "Hello",
-  "age": 18
+  "age": "not number"
 }
 
 // Response 400
@@ -109,9 +113,12 @@ app.listen(8080)
 ## Example Error Formatter
 ```js
 // examples/error-formatter.js
-import Joi from Joi
+import modernValidator from 'modern-express-joi'
+import Joi from 'joi'
 import express from 'express'
+import bodyParser = from 'body-parser'
 const app = express()
+app.use(bodyParser.json())
 
 const template = Joi.object.keys({
   name: Joi.string().required(),
@@ -134,30 +141,39 @@ app.post('/users', (req, res) => {
 })
 
 app.listen(8080)
+console.log('Running at port 8080');
 ```
 
 ## Example Deep Checking Field
 ```js
 // examples/deep-checking.js
-import Joi from Joi
+import modernValidator from 'modern-express-joi'
+import Joi from 'joi'
 import express from 'express'
+import bodyParser = from 'body-parser'
 const app = express()
+app.use(bodyParser.json())
 
+const template = Joi.object().keys({
+  name: Joi.string().required(),
+  age: Joi.number().positive().optional()
+})
 const schemaTemplates = {
-  templateName: Joi.string().required(),
-  templateAge: Joi.number().positive().optional()
+  template
 }
+const errorFormatter = (errors) => (
+  errors.map(error => error.message)
+)
 
-app.use(modernValidator(schemaTemplates)
+app.use(modernValidator(schemaTemplates, { errorFormatter }))
 app.post('/users', (req, res) => {
-  req.checkBody('templateName', 'name')
-  req.checkBody('templateAge', 'age')
-  req.sanitizeBody('templateName', 'name')
-  req.sanitizeBody('templateAge', 'age')
+  req.checkBody('template')
+  req.sanitizeBody('template')
   const errors = req.validationErrors()
   if (errors) res.status(400).send(errors)
   else res.status(200).send({ message: 'Success' })
 })
 
 app.listen(8080)
+console.log('Running at port 8080');
 ```
