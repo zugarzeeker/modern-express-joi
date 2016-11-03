@@ -1,4 +1,11 @@
 # modern-express-joi
+
+[![NPM version][npm-svg]][npm]
+
+[npm]: https://www.npmjs.com/package/modern-express-joi
+[npm-svg]: https://img.shields.io/npm/v/modern-express-joi.svg?style=flat
+
+
 An express.js middleware makes a powerful validation request with the Joi validation.
 
 ## Inspiration
