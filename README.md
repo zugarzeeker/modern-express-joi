@@ -25,13 +25,28 @@ Here are available commands.
 
 ### `req.sanitizeAny(String)`
 This is similar to `req.checkAny` about passing params, but it converts the target object such as `req.body`, `req.query`, `req.params` etc to defining format in `schemaTemplates`.
-<!-- Sanitize your object from locations  -->
 
-### `modernValidator(Object, [errorFormatter])`
+### `modernValidator(Object, [option])`
 Passing `schemaTemplates` as object that has key name of your schema templates to construct an express middleware.
+The second optional parameter must be an object that contains functions, and key names are only `errorFormatter`, `customValidator`, or `customSanitizer`.
 
-### `errorFormatter(errors)`
-You can pass `errorFormatter` as a function to `modernValidator` that is optional second params for formatting errors when using `req.validationErrors()`.
+#### Example Passing Parameters
+```js
+modernValidator(schemaTemplates, {
+  errorFormatter: (errors) => {},
+  customValidator: (value) => {},
+  customSanitizer: (value) => {}
+})
+```
+
+#### `errorFormatter(errors)`
+A function that receives `errors array` or `false` for formatting errors when using `req.validationErrors()`.
+
+#### `customValidator(value)`
+A function that validates the received value then returns `error array` or `false`.
+
+#### `customSanitizer(value, schema)`
+A function that recieves value and schema then returns formatting value follows by schema.
 
 ### `req.validationErrors()`
 Getting your result of validation after you called `req.checkAny`. It returns `false` if it has no validation errors, but It returns `error array` in otherwise.
@@ -105,7 +120,7 @@ const errorFormatter = (errors) => (
   errors.map(error => error.message)
 )
 
-app.use(modernValidator(schemaTemplates, errorFormatter))
+app.use(modernValidator(schemaTemplates, { errorFormatter }))
 app.post('/users', (req, res) => {
   req.checkBody('template')
   req.sanitizeBody('template')
