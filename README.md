@@ -107,6 +107,11 @@ console.log('Running at port 8080');
 ### Failed
 ```json
 // Request
+{
+  "age": "not number"
+}
+
+// Response 400
 [
   {
     "message": "\"name\" is required",
@@ -116,10 +121,6 @@ console.log('Running at port 8080');
       "key": "name"
     }
   }
-]
-
-// Response 400
-[
 ]
 ```
 
