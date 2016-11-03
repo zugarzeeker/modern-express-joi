@@ -1,6 +1,6 @@
 {
   "name": "modern-express-joi",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "An express.js middleware makes a powerful validation request with the Joi validation.",
   "main": "lib/index.js",
   "directories": {
