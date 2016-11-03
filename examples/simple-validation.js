@@ -19,7 +19,7 @@ app.post('/users', (req, res) => {
   req.sanitizeBody('template')
   var errors = req.validationErrors()
   if (errors) res.status(400).send(errors)
-  else res.status(200).send({ message: 'Success', body: req.body, x: '5' })
+  else res.status(200).send({ message: 'Success' })
 })
 
 app.listen(8080)
