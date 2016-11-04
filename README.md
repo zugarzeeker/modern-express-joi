@@ -13,7 +13,7 @@ An express.js middleware makes a powerful validation request with the Joi valida
 
 ## Usage
 - `npm install modern-express-joi`
-- `import modernValidator from 'modern-express-joi'`
+- `import modernValidator from 'modern-express-joi'` or `require('modern-express-joi').default`
 - make an `express` middleware from passing schemas to `modernValidator`
 - add middleware to express
 - call `req.checkAny` for validating
@@ -66,7 +66,7 @@ Getting your result of validation after you called `req.checkAny`. It returns `f
 import modernValidator from 'modern-express-joi'
 import Joi from 'joi'
 import express from 'express'
-import bodyParser = from 'body-parser'
+import bodyParser from 'body-parser'
 const app = express()
 app.use(bodyParser.json())
 
@@ -130,7 +130,7 @@ console.log('Running at port 8080')
 import modernValidator from 'modern-express-joi'
 import Joi from 'joi'
 import express from 'express'
-import bodyParser = from 'body-parser'
+import bodyParser from 'body-parser'
 const app = express()
 app.use(bodyParser.json())
 
@@ -164,7 +164,7 @@ console.log('Running at port 8080')
 import modernValidator from 'modern-express-joi'
 import Joi from 'joi'
 import express from 'express'
-import bodyParser = from 'body-parser'
+import bodyParser from 'body-parser'
 const app = express()
 app.use(bodyParser.json())
 
