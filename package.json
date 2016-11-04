@@ -21,6 +21,10 @@
     "build": "babel src --out-dir lib",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "files": [
+    "src",
+    "lib"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zugarzeeker/modern-express-joi.git"
