@@ -88,7 +88,7 @@ app.post('/users', (req, res) => {
 })
 
 app.listen(8080)
-console.log('Running at port 8080');
+console.log('Running at port 8080')
 
 ```
 
@@ -155,7 +155,7 @@ app.post('/users', (req, res) => {
 })
 
 app.listen(8080)
-console.log('Running at port 8080');
+console.log('Running at port 8080')
 ```
 
 ## Example Deep Checking Field
@@ -189,5 +189,5 @@ app.post('/users', (req, res) => {
 })
 
 app.listen(8080)
-console.log('Running at port 8080');
+console.log('Running at port 8080')
 ```
