@@ -37,11 +37,17 @@ const modernValidator = (schemas, options = {}) => (req, res, next) => {
       }
     }
     req[`sanitize${_.capitalize(location)}`] = (...pipeline) => {
-      req[location] = (
+      const result = (
         customSanitizer
         ? customSanitizer(toValidate)
         : validateSchema(toValidate)(...pipeline).value
       )
+      const field = pipeline[1]
+      if (field) {
+        req[location][field] = result
+      } else {
+        req[location] = result
+      }
     }
   })
   next()
